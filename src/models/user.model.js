@@ -1,38 +1,96 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema(
-	{
-		name: {
-			type: String,
-			required: true,
-		},
-		location: {
-			type: String,
-			required: true,
-		},
-		age: {
-			type: Number,
-		},
-		email: {
-			type: String,
-			required: true,
-			unique: true
-		},
-		last_login: {
-			type: Date
-		},
-		is_active: {
-			type: Boolean,
-			default: true,
-		},
-	},
-	{
-		timestamps: true,
-		versionKey: false,
-	}
+  {
+    first_name: {
+      type: String,
+      required: true,
+    },
+    last_name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    position: {
+      type: String,
+      required: true,
+    },
+    department: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "hr", "employee", "manager"],
+      default: "employee",
+      required: true,
+    },
+    hashed_password: {
+      type: String,
+      required: true,
+    },
+    gender: {
+      type: String,
+      required: false,
+    },
+    marital_status: {
+      type: String,
+      required: false,
+    },
+    date_of_birth: {
+      type: Date,
+    },
+    phone_number: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
+    profile_picture: {
+      type: String, // URL to the image
+    },
+    employment_status: {
+      type: String,
+      enum: ["probation", "full-time", "on leave", "terminated"],
+      default: "full-time",
+    },
+    date_joined: {
+      type: Date,
+      required: true,
+    },
+    date_terminated: {
+      type: Date,
+      required: true,
+    },
+    manager: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // References a manager or supervisor
+    },
+    emergency_contact: {
+      name: String,
+      phone: String,
+      relation: String,
+    },
+    last_login: {
+      type: Date,
+    },
+    is_active: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
-
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
