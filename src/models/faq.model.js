@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const faqSchema = mongoose.Schema(
   {
@@ -6,10 +6,10 @@ const faqSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-	answer:{
-		type: String,
-		required: true,
-	},
+    answer: {
+      type: String,
+      required: true,
+    },
     is_active: {
       type: Boolean,
       default: true,
@@ -17,11 +17,10 @@ const faqSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-	versionKey: false,
+    versionKey: false,
   }
 );
 
-
-const Faq = mongoose.model('Faq', faqSchema);
+const Faq = mongoose.model("Faq", faqSchema);
 
 module.exports = Faq;
