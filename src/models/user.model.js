@@ -29,6 +29,10 @@ const userSchema = mongoose.Schema(
       default: "employee",
       required: true,
     },
+    company:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
     hashed_password: {
       type: String,
       required: true,
@@ -47,6 +51,10 @@ const userSchema = mongoose.Schema(
     phone_number: {
       type: String,
       required: true,
+    },
+    salary: {
+      type: Number,
+      required: false,
     },
     address: {
       type: String,

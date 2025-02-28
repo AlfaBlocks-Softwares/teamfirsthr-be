@@ -1,6 +1,6 @@
 const passport = require('passport')
 // const httpStatus = require('http-status');
-const { OAuth2Client } = require('google-auth-library')
+// const { OAuth2Client } = require('google-auth-library')
 const { getToken, debugLog1 } = require('../utils/commonFunctions')
 const { tokenTypes } = require('../config/tokens')
 const BadRequest = require('../utils/modules/Errors/BadRequest')
@@ -8,7 +8,7 @@ const { verifyToken } = require('../services/token.service.js')
 const { TokenModel } = require('../models')
 // const ApiError = require('../utils/ApiError');
 
-const client = new OAuth2Client('799196653078-ujtnjsbcs98a303vounqf6np4bt0nbl3.apps.googleusercontent.com')
+// const client = new OAuth2Client('799196653078-ujtnjsbcs98a303vounqf6np4bt0nbl3.apps.googleusercontent.com')
 
 // const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {
 //   if (err || info || !user) {
