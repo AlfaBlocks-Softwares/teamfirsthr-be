@@ -2,7 +2,16 @@ const logger = require("../config/logger");
 const { DEBUGGER2, DEBUGGER3, DEBUGGER1 } = require("./Constants");
 
 const getToken = (req) => {
-  return req.headers.token;
+  // Check if the Authorization header exists in the request
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    const token = req.headers.authorization.split(" ")[1];
+    return token;
+  } else {
+    return null;
+  }
 };
 
 // Function to Sort the Data by given Property
