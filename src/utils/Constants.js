@@ -7,5 +7,5 @@ module.exports.STRIPE_RETURN_URL = process.env.SERVER_HOST + '/payment/account/r
 
 //Debugging logging statments check
 module.exports.DEBUGGER1 = true
-module.exports.DEBUGGER2 = false
+module.exports.DEBUGGER2 = true
 module.exports.DEBUGGER3 = false

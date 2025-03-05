@@ -21,12 +21,14 @@ class UserController {
     debugLog1("In function UserController.login");
 
     const bodyParams = req.body;
+    console.log("bodyParams ===> ", bodyParams);
 
     const data = {
       email: bodyParams.email,
       password: bodyParams.password,
     };
     let user = await UserService.getUserByEmail(data.email);
+    console.log("user ===> ", user);
 
     if (!user) {
       return res.json(new BadRequest("Incorrect Email or Password"));
@@ -40,10 +42,9 @@ class UserController {
     if (isMatch) {
       user.hashed_password = undefined;
       let token = await generateAuthTokens(user);
-
       debugLog3("token ===> ", token);
 
-      const httpResponse = HttpResponse.get({ ...user.dataValues, token });
+      const httpResponse = HttpResponse.get({ ...user._doc, token });
       return res.json(httpResponse);
     } else {
       return res.json(new BadRequest("Incorrect Email or Password"));

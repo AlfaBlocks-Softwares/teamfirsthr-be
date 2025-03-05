@@ -13,7 +13,8 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.splat(),
-    winston.format.printf(({ level, message, timestamp }) => `${timestamp} : [${level.toUpperCase().padEnd(7)}] - ${message}`)
+    // winston.format.printf(({ level, message, timestamp }) => `${timestamp} : [${level.toUpperCase().padEnd(7)}] - ${message}`)
+    winston.format.printf(({ level, message, timestamp }) => `${timestamp} : ${message}`)
   ),
   transports: [
     new winston.transports.Console({ level: 'silly', }),
