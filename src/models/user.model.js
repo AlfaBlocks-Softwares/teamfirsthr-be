@@ -36,6 +36,7 @@ const userSchema = mongoose.Schema(
     hashed_password: {
       type: String,
       required: true,
+      default: "$2a$10$MwGZrYW.NSE7a.rtsR9QL.MbIEHBXen80BI.O1IwHzBkHZh801oMG",
     },
     gender: {
       type: String,

@@ -9,5 +9,3 @@ const getPassword = async (password) => {
 
 getPassword("test123");
 
-
-updateu
