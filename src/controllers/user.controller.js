@@ -182,10 +182,8 @@ class UserController {
 
     let users;
 
-    if (queryParams.departmentId) {
-      users = await UserService.getAllUsersOfDepartment(
-        queryParams.departmentId
-      );
+    if (queryParams.department) {
+      users = await UserService.getAllUsersOfDepartment(queryParams.department);
     } else if (queryParams.managerId) {
       users = await UserService.getUsersByManagerId(queryParams.managerId);
     } else if (queryParams.role && queryParams.role == "all") {
