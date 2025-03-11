@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/login", catchAsync(UserController.login));
 
-router.get("/", accessTokenAuth, catchAsync(UserController.getUser));
+router.get("/", accessTokenAuth, catchAsync(UserController.getAllUsers));
 
 router.post("/signup", catchAsync(UserController.signUp));
 

@@ -3,34 +3,36 @@ const { UserModel } = require("../models");
 const ApiError = require("../utils/ApiError");
 const { debugLog1 } = require("../utils/commonFunctions");
 
-const getAllUsers = async () => {
-  debugLog1("In function UserService.getAllUsers");
-  return await UserModel.find({ is_active: true });
-};
-
-const getUserById = async (userId) => {
-  debugLog1("In function UserService.getUserById");
-  return await UserModel.findById(userId);
-};
-
 const getUserByEmail = async (email) => {
   debugLog1("In function UserService.getUserByEmail");
   return await UserModel.findOne({ email });
 };
 
+const getAllUsers = async () => {
+  debugLog1("In function UserService.getAllUsers");
+  return await UserModel.find({ is_active: true }).select("-hashed_password");
+};
+
+const getUserById = async (userId) => {
+  debugLog1("In function UserService.getUserById");
+  return await UserModel.findById(userId).select("-hashed_password");
+};
+
 const getUsersByManagerId = async (managerId) => {
   debugLog1("In function UserService.getUsersByManagerId");
-  return await UserModel.find({ manager: managerId });
+  return await UserModel.find({ manager: managerId }).select(
+    "-hashed_password"
+  );
 };
 
 const getAllUsersOfRole = async (role) => {
   debugLog1("In function UserService.getAllUsersOfRole");
-  return await UserModel.find({ role });
+  return await UserModel.find({ role }).select("-hashed_password");
 };
 
 const getAllUsersOfDepartment = async (department) => {
   debugLog1("In function UserService.getAllUsersOfDepartment");
-  return await UserModel.find({ department });
+  return await UserModel.find({ department }).select("-hashed_password");
 };
 
 const updateUserById = async (userId, updateData) => {
@@ -92,8 +94,8 @@ const deleteUserByEmail = async (email) => {
 };
 
 module.exports = {
-  getAllUsers,
   createUser,
+  getAllUsers,
   getUserById,
   getUserByEmail,
   getUsersByManagerId,

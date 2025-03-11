@@ -170,5 +170,41 @@ class UserController {
       res.json(new BadRequest("User password could not be updated"));
     }
   }
+
+  static async getAllUsers(req, res) {
+    debugLog1("In function UserController.getAllUsers");
+
+    const tokenData = req.tokenData;
+    console.log("tokenData ===> ", tokenData);
+
+    const queryParams = req.query;
+    debugLog2("queryParams ===> ", queryParams);
+
+    let users;
+
+    if (queryParams.departmentId) {
+      users = await UserService.getAllUsersOfDepartment(
+        queryParams.departmentId
+      );
+    } else if (queryParams.managerId) {
+      users = await UserService.getUsersByManagerId(queryParams.managerId);
+    } else if (queryParams.role && queryParams.role == "all") {
+      users = await UserService.getAllUsers();
+    } else if (queryParams.role) {
+      users = await UserService.getAllUsersOfRole(queryParams.role);
+    } else {
+      users = await UserService.getUserById(tokenData.id);
+    }
+
+    if (users) {
+      const httpResponse = HttpResponse.get({
+        size: users.length,
+        data: users,
+      });
+      res.json(httpResponse);
+    } else {
+      res.json(new NotFound("Users could not be found"));
+    }
+  }
 }
 module.exports = UserController;
