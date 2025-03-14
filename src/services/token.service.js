@@ -84,7 +84,7 @@ const generateAuthTokens = async (user) => {
     "days"
   );
   payload = {
-    id: user.id,
+    id: user._id,
     firstName: user.first_name,
     lastName: user.last_name,
     email: user.email,
