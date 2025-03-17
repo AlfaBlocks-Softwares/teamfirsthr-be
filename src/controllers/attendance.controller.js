@@ -133,7 +133,7 @@ class AttendanceController {
     debugLog2("updatedAttendance ===> ", updatedAttendance);
 
     if (updatedAttendance) {
-      res.json(HttpResponse.ok(updatedAttendance));
+      res.json(HttpResponse.updated(updatedAttendance));
     } else {
       res.json(new BadRequest("Failed to check out"));
     }
