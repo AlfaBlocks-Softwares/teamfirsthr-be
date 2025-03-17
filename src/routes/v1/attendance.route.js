@@ -1,6 +1,7 @@
 const express = require("express");
 const AttendanceController = require("../../controllers/attendance.controller");
 const catchAsync = require("../../utils/catchAsync");
+const { accessTokenAuth } = require("../../middlewares/auth");
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.get("/", catchAsync(AttendanceController.getAllAttendancesOfUser));
 // Fetch the latest attendance record of the logged-in user
 router.get(
   "/latest",
+  accessTokenAuth,
   catchAsync(AttendanceController.getUsersLatestAttendance)
 );
 
