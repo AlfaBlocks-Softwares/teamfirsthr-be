@@ -72,12 +72,13 @@ const generateAuthTokens = async (user) => {
     firstName: user.first_name,
     lastName: user.last_name,
     email: user.email,
+    role: user.role,
     company: user.company,
     type: tokenTypes.ACCESS,
     iat: moment().unix(),
     exp: accessTokenExpires.unix(),
   };
-  const accessToken = await generateToken(payload)
+  const accessToken = await generateToken(payload);
 
   const refreshTokenExpires = moment().add(
     config.jwt.refreshExpirationDays,
@@ -88,6 +89,7 @@ const generateAuthTokens = async (user) => {
     firstName: user.first_name,
     lastName: user.last_name,
     email: user.email,
+    role: user.role,
     iat: moment().unix(),
     exp: refreshTokenExpires.unix(),
     type: tokenTypes.REFRESH,

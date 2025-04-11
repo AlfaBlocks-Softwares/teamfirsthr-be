@@ -8,59 +8,125 @@ const { getToken, debugLog1, debugLog2 } = require("../utils/commonFunctions");
 
 class LeaveController {
   static async getAllLeavesOfUser(req, res) {
-    const userId = req.tokenData.id;
-    const leaves = await LeaveService.getAllLeavesOfUser(userId);
-    if (leaves.length) return res.json(HttpResponse.get(leaves));
-    return res.json(new NotFound("Leaves could not be found"));
+    debugLog1("In function LeaveController.getAllLeavesOfUser");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const allLeaves = await LeaveService.getAllLeavesOfUser(tokenData.id);
+    debugLog2("allLeaves ===> ", allLeaves);
+
+    if (allLeaves?.length > 0) {
+      res.json(HttpResponse.get(allLeaves));
+    } else {
+      res.json(new NotFound("Leaves could not be found"));
+    }
   }
 
   static async getUsersUnapprovedLeaves(req, res) {
-    const userId = req.tokenData.id;
-    const leaves = await LeaveService.getUsersUnapprovedLeaves(userId);
-    return res.json(HttpResponse.get(leaves));
+    debugLog1("In function LeaveController.getUsersUnapprovedLeaves");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const leaves = await LeaveService.getUsersUnapprovedLeaves(tokenData.id);
+    debugLog2("leaves ===> ", leaves);
+
+    res.json(HttpResponse.get(leaves));
   }
 
   static async getUsersApprovedLeaves(req, res) {
-    const userId = req.tokenData.id;
-    const { start_date, end_date } = req.query;
+    debugLog1("In function LeaveController.getUsersApprovedLeaves");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const queryParams = req.query;
+    debugLog2("queryParams ===> ", queryParams);
+
+    const { start_date, end_date } = queryParams;
+
     const leaves = await LeaveService.getUsersApprovedLeaves(
-      userId,
+      tokenData.id,
       start_date,
       end_date
     );
-    return res.json(HttpResponse.get(leaves));
+    debugLog2("leaves ===> ", leaves);
+
+    res.json(HttpResponse.get(leaves));
   }
 
   static async getAllOnLeaceUsers(req, res) {
+    debugLog1("In function LeaveController.getAllOnLeaceUsers");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
     const users = await LeaveService.getAllOnLeaveUsers();
-    return res.json(HttpResponse.get(users));
+    debugLog2("users ===> ", users);
+
+    res.json(HttpResponse.get(users));
   }
 
   static async applyForLeave(req, res) {
-    const userId = req.tokenData.id;
-    const { start_date, end_date } = req.body;
+    debugLog1("In function LeaveController.applyForLeave");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const bodyParams = req.body;
+    debugLog2("bodyParams ===> ", bodyParams);
+
+    const { start_date, end_date } = bodyParams;
+
     const leave = await LeaveService.applyForLeave(
-      userId,
+      tokenData.id,
       start_date,
       end_date
     );
-    return res.json(HttpResponse.created(leave));
+    debugLog2("leave ===> ", leave);
+
+    res.json(HttpResponse.created(leave));
   }
 
   static async deleteAppliedLeave(req, res) {
-    const { leaveId } = req.body;
+    debugLog1("In function LeaveController.deleteAppliedLeave");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const bodyParams = req.body;
+    debugLog2("bodyParams ===> ", bodyParams);
+
+    const { leaveId } = bodyParams;
+
     const result = await LeaveService.deleteAppliedLeave(leaveId);
-    return res.json(HttpResponse.deleted(result));
+    debugLog2("deleted result ===> ", result);
+
+    res.json(HttpResponse.deleted(result));
   }
 
   static async updateAppliedLeave(req, res) {
-    const { leaveId, role, approval } = req.body;
+    debugLog1("In function LeaveController.updateAppliedLeave");
+
+    const tokenData = req.tokenData;
+    debugLog2("tokenData ===> ", tokenData);
+
+    const bodyParams = req.body;
+    debugLog2("bodyParams ===> ", bodyParams);
+
+    const { leaveId, approval } = bodyParams;
+
+    const role = tokenData.role;
+
     const updated = await LeaveService.updateLeaveApproval(
       leaveId,
       role,
       approval
     );
-    return res.json(HttpResponse.get(updated));
+    debugLog2("updated leave ===> ", updated);
+
+    res.json(HttpResponse.updated(updated));
   }
 }
 
