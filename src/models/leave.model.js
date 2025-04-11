@@ -1,20 +1,23 @@
 const mongoose = require("mongoose");
 const { check } = require("prettier");
 
-const attendanceSchema = mongoose.Schema(
+const leaveSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the employee assigned to the task
       required: true,
     },
-    check_in: {
+    start_date: {
       type: Date,
     },
-    check_out: {
+    end_date: {
       type: Date,
     },
-    on_review: {
+    manager_approval: {
+      type: Boolean,
+    },
+    hr_approval: {
       type: Boolean,
     },
   },
@@ -24,6 +27,6 @@ const attendanceSchema = mongoose.Schema(
   }
 );
 
-const Attendance = mongoose.model("Attendance", attendanceSchema);
+const Leave = mongoose.model("Leave", leaveSchema);
 
-module.exports = Attendance;
+module.exports = Leave;

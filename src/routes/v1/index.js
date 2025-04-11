@@ -3,6 +3,7 @@ const frazTestRoute = require('./fraztest.route')
 const faqRoute = require('./faq.route')
 const userRoute = require('./user.route.js')
 const attendanceRoute = require('./attendance.route')
+const leaveRoute = require('./leave.route')
 
 
 const config = require('../../config/config')
@@ -25,6 +26,10 @@ const defaultRoutes = [
   {
     path: '/attendance',
     route: attendanceRoute,
+  },
+  {
+    path: '/leave',
+    route: leaveRoute,
   },
 ]
 
